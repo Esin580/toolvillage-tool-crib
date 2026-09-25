@@ -1,6 +1,7 @@
 {
   "name": "toolvillage-tool-crib",
   "private": true,
+  "packageManager": "npm@10.9.6",
   "workspaces": [
     "apps/*",
     "services/*",
@@ -15,6 +16,6 @@
   },
   "devDependencies": {
     "turbo": "^2.11.4",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   }
 }
