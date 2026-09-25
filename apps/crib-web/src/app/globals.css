@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Theme: Dark Acid (default) ───────────────────────────────────────────── */
+:root,
+[data-theme="dark-acid"] {
+  --bg-rgb: 17 17 17;
+  --surface-rgb: 28 28 28;
+  --surface2-rgb: 38 38 38;
+  --accent-rgb: 184 242 0;
+  --accent-dim-rgb: 42 56 0;
+  --urgency-rgb: 224 123 26;
+  --text-rgb: 240 237 232;
+  --text-muted-rgb: 122 120 112;
+  --border: rgba(255, 255, 255, 0.09);
+  --input-bg: rgb(38 38 38);
+  --input-border: rgba(255, 255, 255, 0.1);
+  --scrollbar: rgb(38 38 38);
+  --chart-hi-rgb: 180 245 0;
+  --chart-mid-rgb: 224 228 0;
+  --chart-lo-rgb: 255 195 0;
+}
+
+/* ─── Theme: Light Acid ─────────────────────────────────────────────────────── */
+[data-theme="light-acid"] {
+  --bg-rgb: 236 239 226;
+  --surface-rgb: 250 252 242;
+  --surface2-rgb: 224 229 210;
+  --accent-rgb: 135 191 0;
+  --accent-dim-rgb: 216 246 142;
+  --urgency-rgb: 201 95 10;
+  --text-rgb: 20 24 14;
+  --text-muted-rgb: 100 108 80;
+  --border: rgba(0, 0, 0, 0.08);
+  --input-bg: rgb(229 233 216);
+  --input-border: rgba(0, 0, 0, 0.12);
+  --scrollbar: rgb(200 206 182);
+  --chart-hi-rgb: 135 191 0;
+  --chart-mid-rgb: 190 210 0;
+  --chart-lo-rgb: 240 185 0;
+}
+
+[data-theme="light-acid"] [class*="border-white"] {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: rgb(var(--bg-rgb));
+  color: rgb(var(--text-rgb));
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg-rgb));
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 3px;
+}
+
+/* ─── Focus / Selection ─────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid rgb(var(--accent-rgb));
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgb(var(--accent-rgb) / 0.25);
+  color: rgb(var(--text-rgb));
+}
+
+/* ─── Shared form input ─────────────────────────────────────────────────────── */
+.tv-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: rgb(var(--text-rgb));
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    background 0.25s;
+}
+
+.tv-input:focus {
+  border-color: rgb(var(--accent-rgb));
+}
+
+.tv-input::placeholder {
+  color: rgb(var(--text-muted-rgb));
+}
+
+.tv-input option {
+  background: rgb(var(--surface-rgb));
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Oswald", Impact, "Arial Narrow", sans-serif;
+    font-weight: 700;
+  }
+
+  .glass-surface {
+    @apply bg-surface/40 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  }
+
+  .glow-mesh {
+    background: radial-gradient(at 0% 0%, rgb(var(--accent-rgb) / 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgb(184 242 0 / 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgb(var(--accent-rgb) / 0.02) 0px, transparent 50%);
+  }
+
+  .shimmer-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-sweep::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: none;
+  }
+
+  .shimmer-sweep:hover::after {
+    left: 100%;
+    transition: left 0.6s ease-in-out;
+  }
+
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+}
